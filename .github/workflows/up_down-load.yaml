@@ -9,7 +9,7 @@ jobs:
         run: | 
            sleep 2
            echo "Building an application" > app.txt
-      - name: 
+      - name: upload action
         uses: actions/upload-artifact@v4
         with :
                name: app-text-file-build
@@ -28,6 +28,7 @@ jobs:
          run: |
           sleep 2
           echo "Testing an application" >> app.txt
+          cat app.txt
        
        - name: upload action
          uses: actions/upload-artifact@v4
@@ -47,6 +48,7 @@ jobs:
          run: |
           sleep 2
           echo "Deploying an application" >> app.txt
+          cat app.txt
        
        - name: upload action
          uses: actions/upload-artifact@v4

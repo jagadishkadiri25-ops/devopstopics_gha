@@ -1,0 +1,55 @@
+name: upload and download the artifacts
+on: push
+jobs:
+  job1:
+    name: Build an application
+    runs-on: ubuntu-latest
+    steps:
+      - name: build job
+        run: | 
+           sleep 2
+           echo "Building an application" > app.txt
+      - name: 
+        uses: actions/upload-artifact@v4
+        with :
+               name: app-text-file-build
+               path: app.txt
+  job2:
+    name: Test an application
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+       - name: downlaod action
+         uses: actions/download-artifact@v5
+         with:
+               name : app-text-file-build 
+       
+       - name: testing action
+         run: |
+          sleep 2
+          echo "Testing an application" >> app.txt
+       
+       - name: upload action
+         uses: actions/upload-artifact@v4
+         with:
+           name: app-text-file-test
+           path: app.txt
+  job3:
+    name: Deploy an application
+    runs-on: ubuntu-latest
+    needs: [job2]
+    steps:
+       - name: downlaod action
+         uses: actions/download-artifact@v5
+         with:
+               name : app-text-file-test
+       - name: Deploy action
+         run: |
+          sleep 2
+          echo "Deploying an application" >> app.txt
+       
+       - name: upload action
+         uses: actions/upload-artifact@v4
+         with:
+           name: app-text-file-deploy
+           path: app.txt
